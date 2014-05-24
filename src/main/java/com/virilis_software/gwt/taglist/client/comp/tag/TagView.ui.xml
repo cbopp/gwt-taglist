@@ -1,0 +1,18 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+        xmlns:g='urn:import:com.google.gwt.user.client.ui'
+        ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+        ui:generateKeys='com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator'
+        ui:generateLocales='default'>
+        
+    <ui:with field="css" type="com.virilis_software.gwt.taglist.client.resource.Resources" />
+    
+    <g:HTMLPanel ui:field="tagPanel">
+	    <div class="{css.style.tag}">
+	        <!-- Necessary to start both tags in one line, otherwise HTML will include a space gap between both divs -->
+	        <g:Label ui:field="caption" styleName="{css.style.tagCaption}"></g:Label><g:HTMLPanel ui:field="deletePanel" styleName="{css.style.tagDelete}">
+	           <b>x</b>
+	        </g:HTMLPanel>
+	    </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
+
