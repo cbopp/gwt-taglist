@@ -5,7 +5,7 @@
     
     <groupId>com.virilis_software.gwt</groupId>
     <artifactId>com.virilis_software.gwt.taglist</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     
     <name>GWT Module - TagList</name>
