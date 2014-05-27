@@ -25,6 +25,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.virilis_software.gwt.taglist.client.TagList;
+import com.virilis_software.gwt.taglist.client.resource.Resources;
+import com.virilis_software.gwt.taglist.client.resources.CustomResources;
 import com.virilis_software.gwt.taglist.client.tag.StringTag;
 
 /**
@@ -37,16 +39,19 @@ public class TagListEntryPoint implements EntryPoint {
     public void onModuleLoad() {
         VerticalPanel vp = new VerticalPanel();
         
-        vp.add( this.createSample( "Small non editable box", "border: 1px solid black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", false ) );
-        vp.add( this.createSample( "Small editable box with a dashed border", "border: 1px dashed black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", true ) );
-        vp.add( this.createSample( "Big non editable box with a dashed border", "border: 1px dashed black; width: 200px; font-family: arial, sans-serif; font-size: 20px;", false ) );
-        vp.add( this.createSample( "Big editable box", "border: 1px solid black; width: 200px; font-family: arial, sans-serif; font-size: 20px;", true ) );
+        vp.add( this.createSample( "Small non editable box", "border: 1px solid black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", null, false ) );
+        vp.add( this.createSample( "Small editable box with a dashed border", "border: 1px dashed black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", null, true ) );
+        vp.add( this.createSample( "Big non editable box with a dashed border", "border: 1px dashed black; width: 200px; font-family: arial, sans-serif; font-size: 20px;", null, false ) );
+        vp.add( this.createSample( "Big editable box", "border: 1px solid black; width: 200px; font-family: arial, sans-serif; font-size: 20px;", null, true ) );
+        
+        vp.add( this.createSample( "Non editable box with custom style", "border: 1px solid black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", CustomResources.INSTANCE, false ) );
+        vp.add( this.createSample( "Editable box with custom style", "border: 1px dashed black; width: 100px; font-family: arial, sans-serif; font-size: 10px;", CustomResources.INSTANCE, true ) );
         
         RootPanel.get().add( vp );
     }
     
 
-    private Widget createSample( String description, String style, boolean editable ) {
+    private Widget createSample( String description, String containerStyle, Resources resources, boolean editable ) {
         HorizontalPanel hp = new HorizontalPanel();
         hp.getElement().setAttribute( "style", "margin-bottom: 20px;" );
         
@@ -57,8 +62,8 @@ public class TagListEntryPoint implements EntryPoint {
         
         //TagList
         SimplePanel boundaryBox = new SimplePanel();
-        boundaryBox.setWidget( createTagList( editable, this.createOnFocusCmd( boundaryBox, style ), this.createOnBlurCmd( boundaryBox, style ) ) );
-        boundaryBox.getElement().setAttribute( "style", style );
+        boundaryBox.setWidget( createTagList( resources, editable, this.createOnFocusCmd( boundaryBox, containerStyle ), this.createOnBlurCmd( boundaryBox, containerStyle ) ) );
+        boundaryBox.getElement().setAttribute( "style", containerStyle );
         hp.add( boundaryBox );
         return hp;
     }
@@ -81,14 +86,18 @@ public class TagListEntryPoint implements EntryPoint {
         };
     }
 
-    private TagList<StringTag> createTagList( boolean editable, Command onFocusCmd, Command onBlurCmd ) {
+    private TagList<StringTag> createTagList( Resources resources, boolean editable, Command onFocusCmd, Command onBlurCmd ) {
         List<StringTag> items = new ArrayList<StringTag>();
         items.add( new StringTag( "Tag 1", "Tag 1" ) );
         items.add( new StringTag( "Tag 2", "Tag 2" ) );
         items.add( new StringTag( "Bigger Tag", "Bigger Tag" ) );
-        items.add( new StringTag( "This Tag is even bigger", "This Tag is even bigger" ) );
+        items.add( new StringTag( "This Tag is even bigger", "Bigger Tag" ) );
 
-        TagList<StringTag> tagList = new TagList<StringTag>();
+        TagList<StringTag> tagList;
+        if( resources == null )
+            tagList = new TagList<StringTag>();
+        else
+            tagList = new TagList<StringTag>( resources );
         tagList.setEditable( editable );
         tagList.setTagCreationCodex( StringTag.tagCreationCodex );
         tagList.setOnFocusCmd( onFocusCmd );

@@ -12,10 +12,12 @@
  * the License.
  */
 package com.virilis_software.gwt.taglist.client.comp.tag;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -53,6 +55,7 @@ public class TagView extends Composite {
     private static Binder uiBinder = GWT.create( Binder.class );
     
     @UiField HTMLPanel tagPanel;
+    @UiField DivElement tag;
     @UiField Label caption;
     @UiField HTMLPanel deletePanel;
     
@@ -68,10 +71,14 @@ public class TagView extends Composite {
     public void setUiHandlers( TagListHandlers tagListHandlers ) {
         this.uiHandlers = tagListHandlers;
     }
-    
-    public TagView( Tag<?> tag ) {
+
+    public TagView( Resources resources, Tag<?> tag ) {
         initWidget( uiBinder.createAndBindUi( this ) );
         
+        this.tag.setAttribute( "class", resources.style().tag() );
+        this.caption.setStylePrimaryName( resources.style().tagCaption() );
+        this.deletePanel.setStylePrimaryName( resources.style().tagDelete() );
+
         this.caption.setText( tag.getCaption() );
         
         this.deletePanel.setVisible( false );

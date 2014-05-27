@@ -1,7 +1,9 @@
 # GWT TagList
 This GWT module provides a single widget to manage and display tags.
-You can either use it as a non editable TagList or enable editing and get the possibilities to create, delete and move tags via drag and drop. The widget comes along with a default style for Tags and the TagList, but can also be created with an own set of CSS resources. Size of the TagList and each Tag is inherited from the TagList's parent container.
+You can either use it as a non editable TagList or enable editing and get the possibilities to create, delete and move tags via drag and drop. The widget comes along with a default style for Tags and the TagList, but can also be created with an own set of CSS resources per instance. Size of the TagList and each Tag is inherited from the TagList's parent container.
 No suggestion functionality has yet been implemented.
+
+![Showcase](/showcase.PNG)
 
 # Test
 ## Maven
