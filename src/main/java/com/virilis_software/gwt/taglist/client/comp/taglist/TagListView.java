@@ -12,6 +12,7 @@
  * the License.
  */
 package com.virilis_software.gwt.taglist.client.comp.taglist;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -66,8 +67,12 @@ public class TagListView extends Composite {
         return this.tagsPanel;
     }
 
-    public TagListView() {
+    public TagListView( Resources resources ) {
         initWidget( uiBinder.createAndBindUi( this ) );
+        
+        this.tagListPanel.setStylePrimaryName( resources.style().tagList() );
+        this.inputListItem.setAttribute( "class", resources.style().inputListItem() );
+        this.inputTextBox.setStylePrimaryName( resources.style().inputField() );
         
         this.initTagList();
         this.initInputText();

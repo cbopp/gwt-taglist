@@ -17,9 +17,9 @@ import com.virilis_software.gwt.taglist.client.TagList.InsertionPoint;
 import com.virilis_software.gwt.taglist.client.comp.tag.TagView;
 import com.virilis_software.gwt.taglist.client.tag.Tag;
 
-
 /**
- * @author Chris
+ * 
+ * @author cbopp
  *
  */
 public interface TagListHandlers {

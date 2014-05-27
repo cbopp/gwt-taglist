@@ -23,11 +23,10 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     max-width: 100%;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    border: 1px solid #d9d9d9;
-    background-color: #f5f5f5;
+    border-bottom: 1px solid #B3CEE1;
+    border-right: 1px solid #B3CEE1;
+    background-color: #E0EAF1;
+    color: #3E6D8E;
     white-space: nowrap;
 }
 
@@ -48,7 +47,7 @@
 }
 
 .tagCaptionEditable {
-    max-width: literal('calc( 100% - 0.55em - 9px )') !important;
+    max-width: literal('calc( 100% - 0.55em - 9px )');
 }
 
 .tagDelete {
