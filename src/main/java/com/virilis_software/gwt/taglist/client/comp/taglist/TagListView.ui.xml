@@ -5,15 +5,12 @@
         ui:generateKeys='com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator'
         ui:generateLocales='default'>
         
-    <ui:with field="css" type="com.virilis_software.gwt.taglist.client.resource.Resources" />
-    
-    <g:HTMLPanel ui:field="tagListPanel" styleName="{css.style.tagList}">
+    <g:HTMLPanel ui:field="tagListPanel">
         <vs:TagsPanel ui:field="tagsPanel">
-            <li ui:field="inputListItem" class="{css.style.inputListItem}">
-                <g:TextBox ui:field="inputTextBox" stylePrimaryName="{css.style.inputField}" />
+            <li ui:field="inputListItem">
+                <g:TextBox ui:field="inputTextBox" />
             </li>
         </vs:TagsPanel>
         <span ui:field="textHandler" style="float: left; left: -1000px; position: absolute; display: inline-block;" />
     </g:HTMLPanel>
 </ui:UiBinder>
-

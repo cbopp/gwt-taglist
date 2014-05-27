@@ -38,8 +38,9 @@ public class TagList<T extends Tag<?>> implements IsWidget, TagListHandlers {
     
     public enum InsertionPoint { BEFORE, AFTER };
     
-    private TagListView tagListView = new TagListView();
-    private List<TagItem> tagItems = new ArrayList<TagItem>();
+    private final Resources resources;
+    private final TagListView tagListView;
+    private final List<TagItem> tagItems = new ArrayList<TagItem>();
     
     private boolean editable;
     private TagCreationCodex<T> tagCreationCodex;
@@ -135,12 +136,14 @@ public class TagList<T extends Tag<?>> implements IsWidget, TagListHandlers {
     /**
      * Creates a non editable TagList with custom styles.
      */
-    public TagList( Resources cssResources ) {
+    public TagList( Resources resources ) {
         super();
         
+        this.resources = resources;
+        this.resources.style().ensureInjected();
+
+        this.tagListView = new TagListView( this.resources );
         this.tagListView.setUiHandlers( this );
-        
-        cssResources.style().ensureInjected();
     }
 
     public List<T> getTags() {
@@ -155,7 +158,7 @@ public class TagList<T extends Tag<?>> implements IsWidget, TagListHandlers {
             if( tagItem.getTag().equals( tag ) )
                 return false;
 
-        TagView tagView = new TagView( tag );
+        TagView tagView = new TagView( this.resources, tag );
         tagView.setUiHandlers( this );
         tagView.setEditable( this.editable );
 
