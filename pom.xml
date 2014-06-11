@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.virilis_software.gwt</groupId>
     <artifactId>com.virilis_software.gwt.taglist</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.1.base</version>
     <packaging>jar</packaging>
     
     <name>GWT Module - TagList</name>
@@ -51,14 +52,17 @@
 
         <!-- Plugins -->
         <maven-compiler-plugin>2.5.1</maven-compiler-plugin>
-        <maven-enforcer-plugin>1.1.1</maven-enforcer-plugin>
-        <maven-jar-plugin>2.3</maven-jar-plugin>
         <maven-source-plugin>2.2</maven-source-plugin>
+        <gwt-maven-plugin>2.5.1</gwt-maven-plugin>
 
         <!-- Plugin settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
+        
+        <!-- gwt-maven-plugin settings -->
+        <iTestWebappDirectory>src/test/webapp</iTestWebappDirectory>
+        <iTestTarget>tagListTest.html</iTestTarget>
     </properties>
 
     <dependencies>
@@ -80,10 +84,6 @@
     </dependencies>
     
     <build>
-        <finalName>${project.artifactId}_${project.version}</finalName>
-        
-        <pluginManagement />
-        
         <plugins>
             <!-- 
                  The Compiler Plugin is used to compile the sources of your project.
@@ -101,19 +101,19 @@
             </plugin>
                     
             <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
+	            <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-		<version>${maven-source-plugin}</version>
-		<executions>
-		    <execution>
-			<id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-	            </execution>
-                </executions>
-	    </plugin>
+                <version>${maven-source-plugin}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			    </plugin>
         </plugins>
     </build>
 
@@ -123,33 +123,26 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>src/main/resources</directory>
+                        <directory>src/test/java</directory>
                     </resource>
                     <resource>
                         <directory>src/test/resources</directory>
                     </resource>
-                    <resource>
-                        <directory>src/main/java</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/test/java</directory>
-                    </resource>
                 </resources>
-            
+                
+                <!-- Run embedded jetty server with generated integration test webapp -->
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
-                        <version>2.5.1</version>
+                        <version>${gwt-maven-plugin}</version>
                         <configuration>
                             <logLevel>DEBUG</logLevel>
-                            <warSourceDirectory>${basedir}/src/test/resources/webapp</warSourceDirectory>
+                            <warSourceDirectory>${iTestWebappDirectory}</warSourceDirectory>
                             <copyWebapp>true</copyWebapp>
-                            <output>${basedir}/target/iTest/war</output>
-                            <webXml>${basedir}/target/iTest/war/WEB-INF/web.xml</webXml>
-                            <runTarget>tagListTest.html</runTarget>
-                            <hostedWebapp>${basedir}/target/iTest/war</hostedWebapp>
-                            <noServer>false</noServer>                    
+                            <hostedWebapp>target/iTest/war</hostedWebapp>
+                            <webXml>target/iTest/war/WEB-INF/web.xml</webXml>
+                            <runTarget>${iTestTarget}</runTarget>
                         </configuration>
                     </plugin>
                 </plugins>
